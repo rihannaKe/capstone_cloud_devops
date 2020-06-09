@@ -12,9 +12,3 @@ This porject is demostration of applying skills and knowledge  developed through
 ## The app
 The app is a starter template for [Learn Next.js](https://nextjs.org/learn).
 
-
- stage('Test') {
-            steps {
-                sh 'jenkins/test.sh'
-            }
-        }
