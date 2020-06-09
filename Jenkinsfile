@@ -1,16 +1,10 @@
 pipeline {
     agent { dockerfile true }
     stages {
-        stage('Build') {
+        stage('Test') {
             steps {
-                sh 'npm install'
-            }
-        }
-        stage('Deliver') {
-            steps {
-                sh 'jenkins/deliver.sh'
-                input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                sh 'jenkins/kill.sh'
+                sh 'node --version'
+                sh 'svn --version'
             }
         }
     }
