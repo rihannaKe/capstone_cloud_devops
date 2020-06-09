@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker { image 'node:10' }
-    }
-    environment {
-        CI = 'true'
-    }
+    agent { dockerfile true }
     stages {
         stage('Build') {
             steps {
