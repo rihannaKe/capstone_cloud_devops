@@ -1,5 +1,5 @@
 node {
-    def registry = 'rihannaKe/capstone_cloud_devops'
+    def registry = '58910810/capstone_cloud_devops'
     stage('Checking out git repo') {
       echo 'Checkout...'
       checkout scm
