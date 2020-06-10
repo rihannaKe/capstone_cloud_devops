@@ -1,5 +1,5 @@
 node {
-    def registry = 'rihannadocker/udacity-capstone-project'
+    def registry = 'rihannaKe/capstone_cloud_devops'
     def registryCredential = ‘rihannadocker’
     stage('Checking out git repo') {
       echo 'Checkout...'
