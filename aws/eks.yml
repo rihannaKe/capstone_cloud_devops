@@ -6,7 +6,7 @@ Parameters:
     Description: An Environment name that will be prefixed to resources
     Type: String
 Resources:
-  CapstoneEKS:
+  MyCapstoneEKS:
     Type: AWS::EKS::Cluster
     Properties:
       Version: '1.13'
@@ -23,7 +23,7 @@ Resources:
 Outputs:
   EksId:
     Description: The EKS id.
-    Value: !Ref CapstoneEKS
+    Value: !Ref MyCapstoneEKS
     Export: 
         Name: !Sub ${EnvironmentName}-EKS
 
