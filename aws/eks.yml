@@ -10,7 +10,7 @@ Resources:
     Type: AWS::EKS::Cluster
     Properties:
       Version: '1.13'
-      RoleArn: arn:aws:iam::576136082284:role/eksctl-CapstoneEKS-cluster-ServiceRole-12Z3HJFCPW71H
+      RoleArn: arn:aws:iam::576136082284:role/eks-role
       ResourcesVpcConfig:
         SecurityGroupIds:
         - Fn::ImportValue:
