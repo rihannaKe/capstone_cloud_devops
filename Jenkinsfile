@@ -28,14 +28,11 @@ node {
       dir ('./') {
         withAWS(credentials: 'demo-ecr-credentials', region: 'us-east-2') {
             sh "aws eks --region us-east-2 update-kubeconfig --name CapstoneEKS"
-            sh "kubectl apply -f aws/aws-auth-cm.yaml"
-            echo 'Deploying to AWS applied aws/aws-auth-cm.yaml'
-            sh "kubectl set image deployments/capstone-app capstone-app=${registry}:latest"
-            sh "kubectl apply -f aws/capstone-app-deployment.yml"
-            echo 'Deploying to AWS applied capstone-app-deployment.yml'
-            sh "kubectl get nodes"
-            sh "kubectl get pods"
-            echo 'used kubectl get pods'
+            sh "$HOME/bin/kubectl apply -f aws/aws-auth-cm.yaml"
+            sh "$HOME/bin/kubectl set image deployments/capstone-app capstone-app=${registry}:latest"
+            sh "$HOME/bin/kubectl apply -f aws/capstone-app-deployment.yml"
+            sh "$HOME/bin/kubectl get nodes"
+            sh "$HOME/bin/kubectl get pods"
             sh "aws cloudformation update-stack --stack-name udacity-capstone-nodes --template-body file://aws/worker_nodes.yml --parameters file://aws/worker_nodes_parameters.json --capabilities CAPABILITY_IAM"
         }
       }
