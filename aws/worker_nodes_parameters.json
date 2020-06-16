@@ -6,7 +6,7 @@
     },
     {
         "ParameterKey": "SshKey",
-        "ParameterValue": "jenkins"
+        "ParameterValue": "jenkins-key"
     },
     {
         "ParameterKey":"DesiredInstances",
