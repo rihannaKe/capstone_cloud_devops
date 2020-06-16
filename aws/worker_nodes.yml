@@ -114,17 +114,11 @@ Resources:
     Properties:
       AssociatePublicIpAddress: 'true'
       IamInstanceProfile: !Ref InstanceProfile
-      ImageId:  ami-0343ab73df9eb1496
-      InstanceType: m3.medium
+      ImageId: ami-0ff760d16d9497662
+      InstanceType: t2.micro
       KeyName: !Ref SshKey
       SecurityGroups:
       - !Ref NodesSecurityGroup
-      BlockDeviceMappings:
-        - DeviceName: /dev/xvda
-          Ebs:
-            VolumeSize: 8
-            VolumeType: gp2
-            DeleteOnTermination: true
       UserData:
         Fn::Base64:
           !Sub 
