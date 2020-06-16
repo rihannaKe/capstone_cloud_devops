@@ -1,7 +1,6 @@
 Description: >
     Capstone project for Cloud DevOps Engineering Nanodegree
     Creating the worker nodes.
-    Based on AWS documentation available at https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html
 Parameters:
   EnvironmentName:
     Description: An Environment name that will be prefixed to resources
