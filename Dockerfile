@@ -1,11 +1,17 @@
-FROM nginx
+FROM node:10
 
-## Step 1:
-RUN rm /usr/share/nginx/html/index.html
+# Setting working directory. All the path will be relative to WORKDIR
+WORKDIR /usr/src/app
 
-## Step 2:
-# Copy source code to working directory
-COPY index.html /usr/share/nginx/html
+# Installing dependencies
+COPY package*.json ./
+RUN npm install
 
+# Copying source files
+COPY . .
 
-#sh 'tidy -q -e *.html'
+# Building app
+RUN npm run build
+
+# Running the app
+CMD [ "npm", "start" ]
