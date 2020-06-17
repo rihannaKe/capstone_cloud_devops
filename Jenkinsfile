@@ -23,7 +23,7 @@ node {
 
     stage("Linting") {
       echo 'Linting...'
-      sh 'tidy -q -e *.html'
+      
     }
 
     stage('Deploying') {
