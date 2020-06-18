@@ -21,8 +21,7 @@ node {
       echo 'Deploying to AWS...'
       dir ('./') {
         withAWS(credentials: 'demo-ecr-credentials', region: 'us-east-2') {
-            sh './aws/create_eks.sh'
-          
+            sh './aws/create_worker_nodes.sh'
         }
       }
     }
