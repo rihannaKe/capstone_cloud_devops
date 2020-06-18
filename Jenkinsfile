@@ -26,17 +26,6 @@ node {
       }
 		}
 
-    stage('Deploy blue container') {
-      echo 'Deploying  blue container...'
-      withAWS(region:'us-east-1', credentials:'demo-ecr-credentials') {
-        sh "kubectl set image deployments/capstone-app capstone-app=${registry}:latest"
-        sh '''
-          kubectl apply -f ./aws/capstone-app-deployment.yml
-        '''
-			}
-		}
-
-
 		stage('Deploy blue container') {
       echo 'Deploying  blue container...'
       withAWS(region:'us-east-1', credentials:'demo-ecr-credentials') {
