@@ -22,7 +22,7 @@ node {
         dir ('./') {
           withAWS(credentials: 'demo-ecr-credentials', region: 'us-east-2') {
             sh "aws eks --region us-east-2 update-kubeconfig --name MyCapstoneEKS-yjQYyIp7laWr"
-            sh 'kubectl apply -f aws/aws-auth-cm.yaml'
+            sh "kubectl apply -f aws/aws-auth-cm.yaml"
             sh 'kubectl apply -f blue-controller.json'
           }
       }
