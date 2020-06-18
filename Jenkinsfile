@@ -21,7 +21,7 @@ node {
       echo 'Setting  kubectl context...'
       dir ('./') {
 				withAWS(credentials: 'demo-ecr-credentials', region: 'us-east-2') {
-					sh 'kubectl config set-context arn:aws:eks:us-east-2:576136082284:cluster/MyCapstoneEKS-yjQYyIp7laWr'
+					sh 'kubectl config use-context arn:aws:eks:us-east-2:576136082284:cluster/MyCapstoneEKS-yjQYyIp7laWr'
 				}
       }
 		}
