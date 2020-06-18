@@ -30,7 +30,7 @@ node {
       echo 'Deploying  blue container...'
       withAWS(region:'us-east-1', credentials:'demo-ecr-credentials') {
         sh '''
-          kubectl apply -f ./aws/blue-controller.json
+          kubectl create -f ./aws/blue-controller.json
         '''
         
 			}
@@ -40,7 +40,7 @@ node {
        echo 'Deploying  green container...'
         dir ('./') {
 				withAWS(credentials: 'demo-ecr-credentials', region: 'us-east-2') {
-					sh 'kubectl apply -f green-controller.json'
+					sh 'kubectl create -f green-controller.json'
 				}
         }
 		}

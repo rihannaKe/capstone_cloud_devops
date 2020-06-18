@@ -9,7 +9,7 @@ Resources:
   MyCapstoneEKS:
     Type: AWS::EKS::Cluster
     Properties:
-      Version: '1.13'
+      Version: '1.16'
       RoleArn: arn:aws:iam::576136082284:role/eks-role
       ResourcesVpcConfig:
         SecurityGroupIds:
