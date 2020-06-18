@@ -30,7 +30,7 @@ node {
       echo 'Deploying  blue container...'
       withAWS(region:'us-east-1', credentials:'demo-ecr-credentials') {
         sh '''
-          kubectl apply -f ./blue-controller.json
+          kubectl apply -f ./aws/blue-controller.json
         '''
 			}
 		}
