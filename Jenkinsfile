@@ -28,12 +28,13 @@ node {
 
 		stage('Deploy blue container') {
       echo 'Deploying  blue container...'
+      dir ('./') {
       withAWS(region:'us-east-1', credentials:'demo-ecr-credentials') {
         sh '''
-          kubectl create -f ./aws/blue-controller.json
+          kubectl create -f blue-controller.json
         '''
-        
 			}
+      }
 		}
 
 		stage('Deploy green container') {
