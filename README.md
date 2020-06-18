@@ -10,5 +10,5 @@ This porject is demostration of applying skills and knowledge  developed through
 * Building Docker containers in pipelines
 
 ## The app
-The app is a starter template for [Learn Next.js](https://nextjs.org/learn).
+Inside the app folder there is a static website
 
