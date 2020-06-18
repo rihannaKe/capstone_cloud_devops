@@ -29,9 +29,11 @@ node {
 		stage('Deploy blue container') {
       echo 'Deploying  blue container...'
       withAWS(region:'us-east-1', credentials:'demo-ecr-credentials') {
+        sh "kubectl apply -f ./aws/aws-auth-cm.yaml"
         sh '''
           kubectl apply -f ./aws/blue-controller.json
         '''
+        
 			}
 		}
 
