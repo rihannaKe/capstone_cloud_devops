@@ -26,6 +26,17 @@ node {
       }
 		}
 
+  stage('Set  kubectl image') { 
+      echo 'Setting  kubectl image...'
+      dir ('./') {
+				withAWS(credentials: 'demo-ecr-credentials', region: 'us-east-2') {
+					sh "kubectl set image deployments/capstone-app capstone-app=${registry}:latest"
+				}
+      }
+		}
+
+     
+
 		stage('Deploy blue container') {
       echo 'Deploying  blue container...'
       withAWS(region:'us-east-1', credentials:'demo-ecr-credentials') {
