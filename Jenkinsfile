@@ -4,19 +4,16 @@ node {
       echo 'Checkout...'
       checkout scm
     }
-
     stage('Checking environment') {
       echo 'Checking environment...'
       sh 'git --version'
       echo "Branch: ${env.BRANCH_NAME}"
       sh 'docker -v'
     }
-
     stage("Linting") {
       echo 'Linting...'
       sh 'tidy -q -e app/*.html' 
     }
-
     stage('Set current kubectl context') { 
       echo 'Setting  kubectl context...'
       dir ('./') {
@@ -25,7 +22,6 @@ node {
 				}
       }
 		}
-
 		stage('Deploy blue container') {
       echo 'Deploying  blue container...'
       dir ('./') {
@@ -36,7 +32,6 @@ node {
 			}
       }
 		}
-
 		stage('Deploy green container') {
        echo 'Deploying  green container...'
         dir ('./') {
@@ -45,7 +40,6 @@ node {
 				}
         }
 		}
-
 		stage('Create the service in the cluster, redirect to blue') {
       echo 'Creating service in the cluster...'
         dir ('./') {
@@ -54,7 +48,6 @@ node {
 				  }
         }
 		}
-
 		stage('Create the service in the cluster, redirect to green') {
       echo 'Ready to switch'
       echo 'Create the service in the cluster, redirect to green'
@@ -64,10 +57,8 @@ node {
 				}
       }
 		}
-
     stage("Cleaning up") {
       echo 'Cleaning up...'
       sh 'docker system prune'
     }
-
 }
