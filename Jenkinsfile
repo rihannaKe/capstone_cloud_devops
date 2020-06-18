@@ -17,14 +17,22 @@ node {
       sh 'tidy -q -e app/*.html' 
     }
 
-    stage('Set current kubectl context') { 
-      echo 'Setting  kubectl context...'
+  
+    stage('Deploying') {
+      echo 'Deploying to AWS...'
       dir ('./') {
-				withAWS(credentials: 'demo-ecr-credentials', region: 'us-east-2') {
-					sh 'kubectl config set-context arn:aws:eks:us-east-2:576136082284:cluster/MyCapstoneEKS-yjQYyIp7laWr'
-				}
+        withAWS(credentials: 'demo-ecr-credentials', region: 'us-east-2') {
+            sh "aws eks --region us-east-2 update-kubeconfig --name MyCapstoneEKS-yjQYyIp7laWr"
+            sh "kubectl apply -f aws/aws-auth-cm.yaml"
+            sh "kubectl set image deployments/capstone-app capstone-app=${registry}:latest"
+            sh "kubectl apply -f aws/capstone-app-deployment.yml"
+            sh "kubectl apply -f aws/load-balancer.yml"
+            sh "kubectl get nodes"
+            sh "kubectl get pods"
+        }
       }
-		}
+    }
+
 
 		stage('Deploy blue container') {
         echo 'Deploying  blue container...'
