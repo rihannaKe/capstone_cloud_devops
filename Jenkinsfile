@@ -18,36 +18,47 @@ node {
         sh 'tidy -q -e app/*.html'
     }
 
-    stage('Set current kubectl context') {
-        echo 'Setting  kubectl context...'
-        dir ('./') {
-            withAWS(credentials: 'demo-ecr-credentials', region: 'us-east-2') {
-                sh 'kubectl config use-context arn:aws:eks:us-east-2:576136082284:cluster/MyCapstoneEKS-yjQYyIp7laWr'
-            }
+    stage('Building image') {
+        echo 'Building Docker image...'
+        withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+            sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+            sh "docker build -t ${registry} ."
+            sh "docker tag ${registry} ${registry}"
+            sh "docker push ${registry}"
+            echo 'Pushed to docker hub...'
         }
     }
-    
-    stage('Deploy blue container') {
-        echo 'Deploying  blue container...'
-        sh 'kubectl create -f k8/blue-controller.json'
-    }
-    
-    stage('Deploy green container') {
-        echo 'Deploying  green container...'
-        sh 'kubectl create -f k8/green-controller.json'
-    }
-    
-    stage('Create the service in the cluster, redirect to blue') {
-        echo 'Creating service in the cluster...'
-        sh 'kubectl apply -f k8/blue-service.json'
-    }
 
-    stage('Create the service in the cluster, redirect to green') {
-        echo 'Ready to switch'
-        echo 'Create the service in the cluster, redirect to green'
-        sh 'kubectl apply -f k8/green-service.json'
-    }
-    
+//    stage('Set current kubectl context') {
+//        echo 'Setting  kubectl context...'
+//        dir ('./') {
+//            withAWS(credentials: 'demo-ecr-credentials', region: 'us-east-2') {
+//                sh 'kubectl config use-context arn:aws:eks:us-east-2:576136082284:cluster/MyCapstoneEKS-yjQYyIp7laWr'
+//            }
+//        }
+//    }
+//
+//    stage('Deploy blue container') {
+//        echo 'Deploying  blue container...'
+//        sh 'kubectl create -f k8/blue-controller.json'
+//    }
+//
+//    stage('Deploy green container') {
+//        echo 'Deploying  green container...'
+//        sh 'kubectl create -f k8/green-controller.json'
+//    }
+//
+//    stage('Create the service in the cluster, redirect to blue') {
+//        echo 'Creating service in the cluster...'
+//        sh 'kubectl apply -f k8/blue-service.json'
+//    }
+//
+//    stage('Create the service in the cluster, redirect to green') {
+//        echo 'Ready to switch'
+//        echo 'Create the service in the cluster, redirect to green'
+//        sh 'kubectl apply -f k8/green-service.json'
+//    }
+
     stage('Cleaning up') {
         echo 'Cleaning up...'
         sh 'docker system prune'
