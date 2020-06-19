@@ -18,7 +18,7 @@ node {
         sh 'tidy -q -e app/*.html'
     }
 
-    stage('Building image') {
+    stage('Building image and pushing') {
         echo 'Building Docker image...'
         withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
             sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD "
@@ -32,7 +32,7 @@ node {
     stage('Creating infra eks') {
         sh './aws/create_infrastructure.sh'
         sh './aws/create_eks'
-        //        sh './aws/create_worker_nodes'
+    //        sh './aws/create_worker_nodes'
     }
 
 //    stage('Set current kubectl context') {
