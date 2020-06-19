@@ -15,7 +15,7 @@
          }
       ],
       "selector":{
-         "app":"blue"
+         "app":"capstone-blue"
       },
       "type": "LoadBalancer"
    }

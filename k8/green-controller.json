@@ -2,27 +2,27 @@
    "kind":"ReplicationController",
    "apiVersion":"v1",
    "metadata":{
-      "name":"blue",
+      "name":"capstone-green",
       "labels":{
-         "app":"blue"
+         "app":"capstone-green"
       }
    },
    "spec":{
-      "replicas":1,
+      "replicas":3,
       "selector":{
-         "app":"blue"
+         "app":"capstone-green"
       },
       "template":{
          "metadata":{
             "labels":{
-               "app":"blue"
+               "app":"capstone-green"
             }
          },
          "spec":{
             "containers":[
                {
-                  "name":"blue",
-                  "image":"58910810/capstone_cloud_devops",
+                  "name":"capstone-green",
+                  "image":"58910810/capstone_cloud_devops:latest",
                   "ports":[
                      {
                         "name":"http-server",
