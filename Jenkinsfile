@@ -20,25 +20,25 @@ node {
 
     stage('Building image') {
         echo 'Building Docker image...'
-        withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-            sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+        withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+            sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD "
             sh "docker build -t ${registry} ."
             sh "docker tag ${registry} ${registry}"
             sh "docker push ${registry}"
-            echo 'Pushed to docker hub...'
+            echo 'Pushed to docker hub'
         }
     }
 
-    stage('Creating infra eks'){
+    stage('Creating infra eks') {
         sh './aws/create_infrastructure.sh'
         sh './aws/create_eks'
-//        sh './aws/create_worker_nodes'
+        //        sh './aws/create_worker_nodes'
     }
 
 //    stage('Set current kubectl context') {
 //        echo 'Setting  kubectl context...'
 //        dir ('./') {
-//            withAWS(credentials: 'demo-ecr-credentials', region: 'us-east-2') {
+//            withAWS(credentials: 'demo-eks-credentials', region: 'us-east-2') {
 //                sh 'kubectl config use-context arn:aws:eks:us-east-2:576136082284:cluster/MyCapstoneEKS-yjQYyIp7laWr'
 //            }
 //        }
