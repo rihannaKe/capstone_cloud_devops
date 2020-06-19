@@ -29,6 +29,12 @@ node {
         }
     }
 
+    stage('Creating infra eks'){
+        sh './aws/create_infrastructure.sh'
+        sh './aws/create_eks'
+//        sh './aws/create_worker_nodes'
+    }
+
 //    stage('Set current kubectl context') {
 //        echo 'Setting  kubectl context...'
 //        dir ('./') {
